@@ -1,0 +1,86 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij.platform' version '2.5.0'
+}
+
+group = 'org.jankos'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+    intellijPlatform {
+        defaultRepositories()
+    }
+}
+
+dependencies {
+
+    implementation("org.freemarker:freemarker:2.3.31")
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+    testImplementation 'org.mockito:mockito-core:3.11.2'
+    testImplementation 'org.mockito:mockito-inline:3.11.2'
+    testImplementation 'org.mockito:mockito-junit-jupiter:3.11.2'
+    testImplementation 'org.assertj:assertj-core:3.19.0'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    intellijPlatform {
+        intellijIdeaUltimate('2024.2.4')
+        testFramework TestFrameworkType.Platform.INSTANCE
+        bundledPlugin 'com.intellij.java'
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+tasks {
+    patchPluginXml {
+        changeNotes = """
+            Initial plugin setup.
+        """
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+tasks.named('processResources') {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+patchPluginXml {
+    sinceBuild = '232'  // IntelliJ 2023.2
+    untilBuild = '242.*' // IntelliJ 2024.2+
+}
+
+runIde {
+    jvmArgs = ['-Xmx2g']
+}
+
+signPlugin {
+    certificateChain = System.getenv('CERTIFICATE_CHAIN')
+    privateKey = System.getenv('PRIVATE_KEY')
+    password = System.getenv('PRIVATE_KEY_PASSWORD')
+}
+
+publishPlugin {
+    token = System.getenv('PUBLISH_TOKEN')
+}
