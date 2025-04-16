@@ -10,6 +10,7 @@ import java.util.List;
 public class DTOModel {
   String className;
   String packageName;
+  String qualifiedName;
 
   List<FieldModel> fields;
 }

@@ -17,4 +17,6 @@ public class FieldModel {
     // Optional reference back
     PsiField sourcePsiField;
     PsiType sourcePsiType;
+
+
 }

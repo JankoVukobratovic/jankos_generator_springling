@@ -15,6 +15,13 @@ public class IdeMessage {
         notification.notify(project);
     }
 
+    public static void showWarningNotification(String message, Project project) {
+        Notification notification = NotificationGroupManager.getInstance()
+                .getNotificationGroup(groupId)
+                .createNotification(message, NotificationType.WARNING);
+        notification.notify(project);
+    }
+
     public static void showInfoNotification(String message, Project project) {
         Notification notification = NotificationGroupManager.getInstance()
                 .getNotificationGroup(groupId)

@@ -7,6 +7,5 @@ import lombok.Value;
 @Builder
 public class RestApiGenerationConfig {
     boolean hideIdOnGetEndpoints;
-    boolean generateCrudOperations;
     boolean usePagination;
 }

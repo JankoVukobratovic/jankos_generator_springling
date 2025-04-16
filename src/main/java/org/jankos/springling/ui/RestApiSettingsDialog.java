@@ -9,7 +9,6 @@ import java.awt.*;
 
 public class RestApiSettingsDialog extends DialogWrapper {
     private JCheckBox hideIdCheckbox;
-    private JCheckBox generateCrudCheckbox;
     private JCheckBox usePaginationCheckbox;
 
     public RestApiSettingsDialog() {
@@ -23,11 +22,9 @@ public class RestApiSettingsDialog extends DialogWrapper {
         JPanel panel = new JPanel(new GridLayout(4, 1));
 
         hideIdCheckbox = new JCheckBox("Hide ID on GET endpoints");
-        generateCrudCheckbox = new JCheckBox("Generate CRUD operations", true);
         usePaginationCheckbox = new JCheckBox("Use Pagination for GET endpoints");
 
         panel.add(hideIdCheckbox);
-        panel.add(generateCrudCheckbox);
         panel.add(usePaginationCheckbox);
 
         return panel;
@@ -36,7 +33,6 @@ public class RestApiSettingsDialog extends DialogWrapper {
     public RestApiGenerationConfig getRestApiGenerationConfig() {
         return RestApiGenerationConfig.builder()
                 .hideIdOnGetEndpoints(hideIdCheckbox.isSelected())
-                .generateCrudOperations(generateCrudCheckbox.isSelected())
                 .usePagination(usePaginationCheckbox.isSelected())
                 .build();
     }
