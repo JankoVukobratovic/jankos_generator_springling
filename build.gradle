@@ -18,22 +18,17 @@ repositories {
 
 dependencies {
 
+    // Required dependencies
     implementation("org.freemarker:freemarker:2.3.31")
-
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
-    testImplementation 'org.mockito:mockito-core:3.11.2'
-    testImplementation 'org.mockito:mockito-inline:3.11.2'
-    testImplementation 'org.mockito:mockito-junit-jupiter:3.11.2'
-    testImplementation 'org.assertj:assertj-core:3.19.0'
-
+    implementation "org.jetbrains:annotations:24.0.1"
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    // Test dependencies
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-core:4.8.0'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
 
     intellijPlatform {
         intellijIdeaUltimate('2024.2.4')
@@ -83,4 +78,20 @@ signPlugin {
 
 publishPlugin {
     token = System.getenv('PUBLISH_TOKEN')
+}
+
+tasks.register("downloadDocs") {
+    doLast {
+        configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            println "Downloading docs for: ${artifact.moduleVersion.id}"
+            try {
+                artifact.moduleVersion.id.componentIdentifier.artifactName
+                def sources = dependencies.create("${artifact.moduleVersion.id}@sources")
+                def javadoc = dependencies.create("${artifact.moduleVersion.id}@javadoc")
+                configurations.detachedConfiguration(sources, javadoc).resolve()
+            } catch (Exception e) {
+                println "Unable to download docs for ${artifact.moduleVersion.id}: ${e.message}"
+            }
+        }
+    }
 }

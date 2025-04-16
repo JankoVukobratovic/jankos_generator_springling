@@ -26,20 +26,16 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <notificationGroup id="Springling Plugin" displayType="BALLOON" />
     </extensions>
 
     <actions>
-        <action id="org.jankos.springling.actions.OpenServiceRepositoryWizardAction"
-                class="org.jankos.springling.actions.OpenServiceRepositoryWizardAction"
-                text="Generate Repository and Service"
-                description="Generate JPARepository and Spring Service for this @Entity.">
-            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
-        </action>
-        <action id="org.jankos.springling.actions.OpenDTOWizardAction"
-                class="org.jankos.springling.actions.OpenDTOWizardAction"
-                text="Generate DTO and Mapper"
-                description="Generate Data Transfer Objects and their Mappers for this @Entity.">
+
+        <action id="org.jankos.springling.actions.GenerateRestApiAction"
+                class="org.jankos.springling.actions.GenerateRestApiAction"
+                text="Generate Spring REST API"
+                description="Generate Spring REST API for this @Entity. This includes a controller, service, repository, and a creation DTO.
+                 May include additional features based on the selected options.">
             <add-to-group group-id="EditorPopupMenu" anchor="last"/>
         </action>
     </actions>
