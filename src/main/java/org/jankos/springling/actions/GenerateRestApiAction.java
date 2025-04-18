@@ -7,8 +7,8 @@ import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
-import org.jankos.springling.intellij.IdeMessage;
-import org.jankos.springling.intellij.PsiAdapter;
+import org.jankos.springling.adapters.IdeMessageAdapter;
+import org.jankos.springling.adapters.PsiAdapter;
 import org.jankos.springling.managers.RestApiManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,13 +18,13 @@ public class GenerateRestApiAction extends AnAction {
     public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
         Project project = anActionEvent.getProject();
         if (project == null) {
-            IdeMessage.showErrorNotification("No project found.", null);
+            IdeMessageAdapter.showErrorNotification("No project found.", null);
             return;
         }
 
         PsiFile psiFile = anActionEvent.getData(CommonDataKeys.PSI_FILE);
         if (psiFile == null) {
-            IdeMessage.showErrorNotification("No file selected.", project);
+            IdeMessageAdapter.showErrorNotification("No file selected.", project);
             return;
         }
 
@@ -33,15 +33,15 @@ public class GenerateRestApiAction extends AnAction {
                 : null;
 
         if (psiClass == null) {
-            IdeMessage.showErrorNotification("Please select a valid entity class.", project);
+            IdeMessageAdapter.showErrorNotification("Please select a valid entity class.", project);
             return;
         }
 
         try {
             new RestApiManager().generateRestApi(psiClass, project);
-            IdeMessage.showInfoNotification("REST API generated successfully.", project);
+            IdeMessageAdapter.showInfoNotification("REST API generated successfully.", project);
         } catch (Exception e) {
-            IdeMessage.showErrorNotification("Failed to generate REST API: " + e.getMessage(), project);
+            IdeMessageAdapter.showErrorNotification("Failed to generate REST API: " + e.getMessage(), project);
         }
 
     }

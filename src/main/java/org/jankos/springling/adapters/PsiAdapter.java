@@ -1,4 +1,4 @@
-package org.jankos.springling.intellij;
+package org.jankos.springling.adapters;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;

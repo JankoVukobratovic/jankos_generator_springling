@@ -1,11 +1,11 @@
-package org.jankos.springling.intellij;
+package org.jankos.springling.adapters;
 
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationGroupManager;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.project.Project;
 
-public class IdeMessage {
+public class IdeMessageAdapter {
     private static final String groupId = "Springling Plugin";
 
     public static void showErrorNotification(String message, Project project) {
