@@ -2,11 +2,10 @@ package org.jankos.springling.managers;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
-import org.jankos.springling.config.RestApiGenerationConfig;
+import org.jankos.springling.options.ControllerGenerationOptions;
 import org.jankos.springling.exceptions.NotAnEntityException;
 import org.jankos.springling.adapters.IdeMessageAdapter;
 import org.jankos.springling.adapters.PsiAdapter;
-import org.jankos.springling.models.DTOModel;
 import org.jankos.springling.models.EntityModel;
 import org.jankos.springling.ui.RestApiSettingsDialog;
 
@@ -37,7 +36,7 @@ public class RestApiManager {
             return;
         }
 
-        RestApiGenerationConfig config = dialog.getRestApiGenerationConfig();
+        ControllerGenerationOptions config = dialog.getRestApiGenerationConfig();
 
         IdeMessageAdapter.showInfoNotification("REST API generation started with selected options.", project);
 

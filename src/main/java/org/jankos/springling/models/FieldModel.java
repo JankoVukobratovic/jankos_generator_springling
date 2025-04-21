@@ -10,7 +10,7 @@ import lombok.Value;
 public class FieldModel {
     String name;
     String typeName; // e.g., "String", "Long"
-    String qualifiedTypeName; // e.g., "java.lang.String", "java.lang.Long"
+    String fqnTypeName; // e.g., "java.lang.String", "java.lang.Long"
     boolean isIdField;
     boolean isNullable; // Determined from annotations like @NotNull, @Column(nullable=...)
 

@@ -59,7 +59,7 @@ public class DTOGenerator {
     private Map<String, Object> prepareDataModel(DTOModel dtoModel) {
         List<String> imports = new ArrayList<>();
         for (FieldModel field : dtoModel.getFields()) {
-            String fullyQualifiedTypeName = field.getQualifiedTypeName();
+            String fullyQualifiedTypeName = field.getFqnTypeName();
 
             if (isPrimitiveType(fullyQualifiedTypeName)) {
                 continue;

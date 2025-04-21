@@ -1,7 +1,7 @@
 package org.jankos.springling.ui;
 
 import com.intellij.openapi.ui.DialogWrapper;
-import org.jankos.springling.config.RestApiGenerationConfig;
+import org.jankos.springling.options.ControllerGenerationOptions;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -30,8 +30,8 @@ public class RestApiSettingsDialog extends DialogWrapper {
         return panel;
     }
 
-    public RestApiGenerationConfig getRestApiGenerationConfig() {
-        return RestApiGenerationConfig.builder()
+    public ControllerGenerationOptions getRestApiGenerationConfig() {
+        return ControllerGenerationOptions.builder()
                 .hideIdOnGetEndpoints(hideIdCheckbox.isSelected())
                 .usePagination(usePaginationCheckbox.isSelected())
                 .build();

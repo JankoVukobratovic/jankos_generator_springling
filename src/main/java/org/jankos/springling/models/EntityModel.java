@@ -18,4 +18,8 @@ public class EntityModel {
 
     // Optional reference back to the source PSI element
     PsiClass sourcePsiClass;
+
+    public String getFqnTypeName() {
+        return packageName + "." + className;
+    }
 }

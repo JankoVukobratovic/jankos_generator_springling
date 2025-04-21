@@ -24,7 +24,8 @@ public class MapperParser {
    * @param target The target list of fields.
    * @param direction The direction of the mapping. Can be SOURCE_TO_TARGET, TARGET_TO_SOURCE or
    *     BOTH.
-   * @return
+   * @return A MapperModel representing the mapping between the source and target fields.
+   *
    */
   @Nullable
   public MapperModel parse(
@@ -85,31 +86,12 @@ public class MapperParser {
 
     List<MappingModel> mappings = new ArrayList<>();
 
-    for (FieldModel sourceField : source) {
-      for (FieldModel targetField : target) {
-        // same name - same field
-        if (sourceField.getName().equals(targetField.getName())) {
-          mappings.add(mappingParser.generate(sourceField, targetField));
-        }
+    //pair the fields
+    //if a field doesnt have a pair, pair it with null.
+    //this accounts for both ways
 
-        // similar names, one has 'id' added to it, meaning it's a reference to another entity
-        // PROBABLY!
 
-        if (sourceField.getName().endsWith("Id")
-            && targetField
-                .getName()
-                .equals(sourceField.getName().substring(0, sourceField.getName().length() - 2))) {
-          mappings.add(mappingParser.generate(sourceField, targetField));
-        }
 
-        if (targetField.getName().endsWith("Id")
-            && sourceField
-                .getName()
-                .equals(targetField.getName().substring(0, targetField.getName().length() - 2))) {
-          mappings.add(mappingParser.generate(sourceField, targetField));
-        }
-      }
-    }
 
     if (mappings.isEmpty()) return null;
     return mappings;

@@ -120,7 +120,7 @@ public class PsiAdapter {
     return FieldModel.builder()
         .name(field.getName())
         .typeName(type.getPresentableText())
-        .qualifiedTypeName(type.getCanonicalText())
+        .fqnTypeName(type.getCanonicalText())
         .isIdField(isId)
         .isNullable(isNullable)
         .sourcePsiField(field)
